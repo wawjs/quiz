@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz NestJS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+</head>
+<body>
+     <section>
+          <h1>NestJS</h1>
+          <p>
+               <a href="https://www.meetup.com/pl-PL/Angular-Warsaw/events/280989167/">link do wydarzenia</a>
+               <br/>
+               warto zerknąć:
+               <ul>
+                    <li><a href="https://github.com/valueadd-poland/angular-job-interview-questions-to-ask-companies">angular-job-interview-questions-to-ask-companies</a></li>
+               </ul>
+          </p>
+          <h2>Prelekcja 1</h2>
+          <div>
+               <form action="">
+                    <p>O czym była prelekcja? <span class="badge bg-primary">0 pkt.</span></p>
+                    <div class="iq">() wprowadzenie do pisania pierwszych testów () konfiguracja jest () porównanie jest mocha () TDD a BDD () jak pisać testy</div>
+                    <button type="submit">Wyślij</button>
+               </form>
+          </div>
+     </section>
+
+     <script>
+          function parse(text, prefix = '', sufix = '', id = '') {
+               return prefix + text
+               // .replace(/[(]?(.?)\) ?(.*) ?\(?/g, 
+               .split('()').slice(1).map(
+               function (match, i) {
+                    return `<li><label><input name="_${id}" value="${i}" type=radio /> ${match.trim()}</label></li>`;
+               }).join('') + sufix;
+          }
+          const element = document.querySelector('.iq') || document.body
+          element.innerHTML = parse(element.innerHTML, '<ol style="list-style-type: none">', '</ol>')
+     </script>
+</body>
+</html>
