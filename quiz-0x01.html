@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz NestJS</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+    <style>
+         .d-flex {
+              display: flex;
+         }
+    </style>
 </head>
 <body>
      <section>
@@ -23,6 +28,34 @@
                <form action="">
                     <p>O czym była prelekcja? <span class="badge bg-primary">0 pkt.</span></p>
                     <div class="iq">() wprowadzenie do pisania pierwszych testów () konfiguracja jest () porównanie jest mocha () TDD a BDD () jak pisać testy</div>
+
+                    <p>Jak czyta się wzorowe testy?</p>
+                    <div class="iq">() jak poemat () najpierw beforeAll, następnie afterAll () długo, zawsze długo trwa wdrożenie do kodu</div>
+
+                    <p>Który kod testów jest czytelniejszy?</p>
+                    <div class="d-flex">
+                         <pre>
+                              describe('po lewej', async () => {
+                                   await logic.givenUserIsAbleToLogIn();
+                                   await ctx.pushBalance();
+                                   await logic.userRentsGun();
+                                   await ctx.assertBalanceHasBeenLowered();
+                                   await logic.userGivesBackGun();
+                              })
+                         </pre>
+                         <pre>
+                              describe('po prawej', async () => {
+                                   const token = (await fetch(`/api/login`).then(r => r.json())).accessToken;
+                                   const headers = {headers: {['Authorization']: `Bearer ${token}`}}
+                                   cosnt balance = (await fetchJson(`/api/profile`, headers)).balance
+                                   await fetch(`/api/rental`, headers)
+                                   await fetch(`/api/return`, headers)
+                                   console.assert((await fetchJson(`/api/profile`, headers)).balance < balance, 'balance didn\'t decrease')
+                              })
+                         </pre>
+                    </div>
+                    <div class="iq">() po lewej () po prawej</div>
+                    
                     <button type="submit">Wyślij</button>
                </form>
           </div>
@@ -37,8 +70,9 @@
                     return `<li><label><input name="_${id}" value="${i}" type=radio /> ${match.trim()}</label></li>`;
                }).join('') + sufix;
           }
-          const element = document.querySelector('.iq') || document.body
-          element.innerHTML = parse(element.innerHTML, '<ol style="list-style-type: none">', '</ol>')
+          [...document.querySelectorAll('.iq')].map(element => {
+               element.innerHTML = parse(element.innerHTML, '<ol style="list-style-type: none">', '</ol>')
+          })
      </script>
 </body>
 </html>
